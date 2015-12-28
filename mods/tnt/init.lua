@@ -383,12 +383,12 @@ function tnt.register_tnt(def)
 		tnt.burn(pos)
 	end,
 	mesecons = {effector = {action_on = 
-	function (pos)
-		tnt.boom(pos, def.radius, def.damage_radius, def.disable_drops)
-	end
+		function (pos)
+			tnt.boom(pos, def.radius, def.damage_radius, def.disable_drops)
+		end
 	}},
 })
-	minetest.register_node(":"..name.."_burning", {
+minetest.register_node(":"..name.."_burning", {
 	tiles = {
 		{
 			name = tnt_burning,
