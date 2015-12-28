@@ -361,7 +361,8 @@ function tnt.register_tnt(def)
 	local tnt_top = def.tiles.top or def.name.."_top.png"
 	local tnt_bottom = def.tiles.bottom or def.name.."_bottom.png"
 	local tnt_side = def.tiles.side or def.name.."_side.png"
-	local tnt_burning = def.tiles.burning or def.name.."_top_burning_animated.png"
+	local tnt_burning = def.tiles.burning or
+		def.name.."_top_burning_animated.png"
 	if not def.damage_radius then 
 		def.damage_radius = def.radius * 2 
 	end
