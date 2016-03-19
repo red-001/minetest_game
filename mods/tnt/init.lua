@@ -431,7 +431,9 @@ function tnt.register_tnt(def)
 			end
 		end,
 		on_blast = function(pos, intensity)
-			tnt.burn(pos)
+			minetest.after(0.1, function()
+				tnt.boom(pos, def)
+			end)
 		end,
 		mesecons = {effector = 
 			{action_on = 
