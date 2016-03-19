@@ -87,15 +87,16 @@ local function destroy(drops, npos, cid, c_air, c_fire, on_blast_queue, ignore_p
 	if not ignore_protection and minetest.is_protected(npos, "") then
 		return cid
 	end
+	
 	local def = cid_data[cid]
-	if not ignore_on_blast and def and def.on_blast then
-		on_blast_queue[#on_blast_queue + 1] = {pos = vector.new(npos), on_blast = def.on_blast}
-		return cid
-	end
+
 	if not def then
 		return c_air
 	elseif def.flammable then
 		return c_fire
+	elseif not ignore_on_blast and def.on_blast then
+		on_blast_queue[#on_blast_queue + 1] = {pos = vector.new(npos), on_blast = def.on_blast}
+		return cid
 	else
 		local node_drops = minetest.get_node_drops(def.name, "")
 		for _, item in ipairs(node_drops) do
