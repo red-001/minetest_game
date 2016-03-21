@@ -121,6 +121,19 @@ minetest.register_node("bones:bones", {
 			return true
 		end
 	end,
+	
+	on_blast = function(pos)
+		local meta = minetest.get_meta(pos)
+		local inv  = meta:get_inventory()
+
+		local drops = {"bones:bones"}
+		
+		for i = 2, 33 do
+			drops[i] = inv:get_stack("main", i)
+		end
+		minetest.remove_node(pos)
+		return drops
+	end,
 })
 
 local function may_replace(pos, player)

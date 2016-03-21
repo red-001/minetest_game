@@ -1468,6 +1468,19 @@ minetest.register_node("default:chest", {
 			" takes " .. stack:get_name() ..
 			" from chest at " .. minetest.pos_to_string(pos))
 	end,
+	
+	on_blast = function(pos)
+		local meta = minetest.get_meta(pos)
+		local inv  = meta:get_inventory()
+
+		local drops = {"default:chest"}
+		for i = 2, 32 do
+			drops[i] = inv:get_stack("main", i)
+		end
+		minetest.remove_node(pos)
+		return drops
+	end,
+	
 })
 
 minetest.register_node("default:chest_locked", {

@@ -220,7 +220,23 @@ local function furnace_node_timer(pos, elapsed)
 
 	return result
 end
-
+local function on_blast(pos)
+		local meta = minetest.get_meta(pos)
+		local inv  = meta:get_inventory()
+		
+		local drops = {
+		"default:furnace",
+		inv:get_stack("src",1),
+		inv:get_stack("src",1),
+		}
+		
+		for i = 4, 8 do
+			drops[i] = inv:get_stack("dst", i)
+		end
+		
+		minetest.remove_node(pos)
+		return drops
+end
 --
 -- Node definitions
 --
@@ -260,6 +276,7 @@ minetest.register_node("default:furnace", {
 	allow_metadata_inventory_put = allow_metadata_inventory_put,
 	allow_metadata_inventory_move = allow_metadata_inventory_move,
 	allow_metadata_inventory_take = allow_metadata_inventory_take,
+	on_blast = on_blast,
 })
 
 minetest.register_node("default:furnace_active", {
@@ -293,5 +310,6 @@ minetest.register_node("default:furnace_active", {
 	allow_metadata_inventory_put = allow_metadata_inventory_put,
 	allow_metadata_inventory_move = allow_metadata_inventory_move,
 	allow_metadata_inventory_take = allow_metadata_inventory_take,
+	on_blast = on_blast,
 })
 
