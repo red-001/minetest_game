@@ -47,10 +47,16 @@ end
 
 local function eject_drops(drops, pos, radius)
 	local drop_pos = vector.new(pos)
+	local dropped = 0
 	for _, item in pairs(drops) do
 		local count = item:get_count()
+		local min = math.ceil(count*.1)
+		local max = math.ceil(count*.4)
+		print("2;"..dropped)
 		while count > 0 do
-			local take = math.min(math.random(2,5),
+			print(dropped)
+			if dropped > 70 then return end
+			local take = math.min(math.random(min,max),
 					item:get_count(),
 					item:get_stack_max())
 			rand_pos(pos, drop_pos, radius)
@@ -62,6 +68,7 @@ local function eject_drops(drops, pos, radius)
 						y = math.random(0, 10),
 						z = math.random(-3, 3)})
 			end
+			dropped = dropped + 1
 			count = count - take
 		end
 	end
